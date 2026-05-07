@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Web Development Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#38bdf8;
+    --secondary:#8b5cf6;
+    --bg:#020617;
+    --card:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.12);
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#020617,#0f172a,#111827);
+    color:white;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top left,rgba(56,189,248,0.2),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(139,92,246,0.2),transparent 30%);
+    z-index:-1;
+}
+
+header{
+    padding:18px 25px;
+    background:rgba(255,255,255,0.05);
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.logo h1{
+    color:var(--primary);
+    font-size:28px;
+}
+
+.logo p{
+    opacity:0.8;
+    font-size:14px;
+}
+
+.info{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.info-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:10px 16px;
+    border-radius:12px;
+    font-size:14px;
+}
+
+.main{
+    display:flex;
+    height:calc(100vh - 90px);
+}
+
+.sidebar{
+    width:320px;
+    overflow-y:auto;
+    padding:20px;
+    background:rgba(255,255,255,0.04);
+    border-right:1px solid var(--border);
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+    color:var(--primary);
+}
+
+.section{
+    margin-top:25px;
+    margin-bottom:10px;
+    color:#cbd5e1;
+    font-size:14px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.assignment-btn{
+    width:100%;
+    padding:15px;
+    margin-bottom:14px;
+    border:none;
+    border-radius:14px;
+    background:var(--card);
+    color:white;
+    text-align:left;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.assignment-btn:hover{
+    background:rgba(56,189,248,0.15);
+    border-color:var(--primary);
+    transform:translateX(5px);
+}
+
+.assignment-btn.active{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-weight:600;
+}
+
+.viewer{
+    flex:1;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.top h2{
+    color:var(--primary);
+}
+
+.live{
+    padding:10px 18px;
+    border-radius:30px;
+    background:rgba(34,197,94,0.15);
+    color:#4ade80;
+    border:1px solid rgba(34,197,94,0.3);
+    font-size:14px;
+}
+
+.preview{
+    flex:1;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:white;
+    position:relative;
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.loader{
+    position:absolute;
+    inset:0;
+    background:#020617;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:15px;
+    z-index:10;
+}
+
+.spinner{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:5px solid rgba(255,255,255,0.1);
+    border-top:5px solid var(--primary);
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+footer{
+    padding:12px;
+    text-align:center;
+    background:rgba(255,255,255,0.05);
+    border-top:1px solid var(--border);
+    font-size:14px;
+}
+
+@media(max-width:900px){
+
+    body{
+        overflow:auto;
+    }
+
+    .main{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .viewer{
+        height:85vh;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+    <h1>🌐 Web Development Dashboard</h1>
+    <p>Assignments Showcase Portal</p>
+</div>
+
+<div class="info">
+    <div class="info-box">Name: Aryan Belekar</div>
+    <div class="info-box">Roll No: 106</div>
+    <div class="info-box">Subject: Web Development</div>
+</div>
+
+</header>
+
+<div class="main">
+
+<div class="sidebar">
+
+<h2>Assignments</h2>
+
+<div class="section">HTML Assignments</div>
+
+<button class="assignment-btn active"
+onclick="loadAssignment('Assignment 1.html',this)">
+📄 Assignment 1
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 2.html',this)">
+🖥️ Assignment 2
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 3.html',this)">
+🎨 Assignment 3
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 4.html',this)">
+📋 Assignment 4
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 5.html',this)">
+⚽ Assignment 5
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 6.html',this)">
+🌍 Assignment 6
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 7.html',this)">
+🔗 Assignment 7
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 8.html',this)">
+📅 Assignment 8
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 9.html',this)">
+📝 Assignment 9
+</button>
+
+<div class="section">Advanced Assignments</div>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 10/index.html',this)">
+💼 Assignment 10
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 11/index.html',this)">
+🎯 Assignment 11
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 12/index.html',this)">
+💿 Assignment 12
+</button>
+
+<button class="assignment-btn"
+onclick="loadAssignment('Assignment 13/index.html',this)">
+📚 Assignment 13
+</button>
+
+</div>
+
+<div class="viewer">
+
+<div class="top">
+    <h2 id="title">Assignment 1</h2>
+    <div class="live">● Live Preview</div>
+</div>
+
+<div class="preview">
+
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <p>Loading Assignment...</p>
+</div>
+
+<iframe id="frame" src="Assignment 1.html"></iframe>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 Aryan Belekar | Web Development Dashboard
+</footer>
+
+<script>
+
+const frame=document.getElementById('frame');
+const loader=document.getElementById('loader');
+const title=document.getElementById('title');
+
+function loadAssignment(file,btn){
+
+    loader.style.display='flex';
+
+    document.querySelectorAll('.assignment-btn').forEach(button=>{
+        button.classList.remove('active');
+    });
+
+    btn.classList.add('active');
+
+    frame.src=file;
+
+    title.innerText=btn.innerText;
+
+    frame.onload=function(){
+        loader.style.display='none';
+    }
+
+}
+
+window.onload=function(){
+
+    setTimeout(()=>{
+        loader.style.display='none';
+    },1000);
+
+}
+
+</script>
+
+</body>
+</html>
