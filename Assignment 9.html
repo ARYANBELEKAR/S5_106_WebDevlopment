@@ -12,8 +12,14 @@
    <input type="text" name="name"><br><br>
    Email:<br>
  <input type="email" name="email"><br><br>
-    Phone Number:<br>
-<input type="tel" name="phone" id="phone" oninput="validatePhone(this)">
+   Phone Number:<br>
+<input 
+    type="text" 
+    name="phone" 
+    id="phone"
+    maxlength="10"
+    oninput="validatePhone(this)"
+>
 <p id="error-msg" style="color:red; font-size:12px; display:none;">
   Only 10 digits are allowed!
 </p>
