@@ -13,17 +13,17 @@
    Email:<br>
  <input type="email" name="email"><br><br>
    Phone Number:<br>
+
 <input 
-    type="text" 
-    name="phone" 
-    id="phone"
-    maxlength="10"
-    oninput="validatePhone(this)"
->
-<p id="error-msg" style="color:red; font-size:12px; display:none;">
-  Only 10 digits are allowed!
-</p>
-<br>
+type="text" 
+name="phone" 
+id="phone"
+maxlength="10"
+onkeypress="return onlyNumbers(event)"
+placeholder="Enter phone number">
+
+<br><br>
+
      Gender:<br>
     <input type="radio" name="gender"> Male
      <input type="radio" name="gender"> Female<br><br>
